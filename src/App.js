@@ -3,6 +3,8 @@ import { Header } from './components/Header/Header/Header';
 import { PizzaBlock } from './components/Header/Pizza-block/Pizza-block';
 import { Sort } from './components/Header/Sort/Sort';
 import './scss/app.scss';
+import pizzas from './pizzas.json';
+
 
 function App() {
     return (
@@ -16,11 +18,14 @@ function App() {
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
                     <div className="content__items">
-                        <PizzaBlock title="Mexicano" price={350}/>
-                        <PizzaBlock title="Mexicano" price={350}/>
-                        <PizzaBlock title="Hot-pepper" price={390}/>
-                        <PizzaBlock title="Hot-pepper" price={390}/>
-                        <PizzaBlock title="Hot-pepper" price={390}/>
+                        {pizzas.map((el, index) => {
+                            return <PizzaBlock key={index}
+                                        img={el.imageUrl}
+                                        title={el.title} 
+                                        type={el.types}
+                                        sizes={el.sizes}
+                                        price={el.price}/>
+                        })}
                     </div>
                 </div>
             </div>
