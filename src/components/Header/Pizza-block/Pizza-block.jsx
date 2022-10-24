@@ -1,32 +1,32 @@
 import { useState } from 'react';
 
-export const PizzaBlock = ({img, title, type, sizes, price }) => {
-  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
-  const [activeTypeIndex, setActiveTypeIndex] = useState(0);
+export const PizzaBlock = ({imageUrl, title, types, sizes, price}) => {
+  const [activeSizeIndex, setActiveSizeIndex] = useState(null);
+  const [activeTypeIndex, setActiveTypeIndex] = useState(null);
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={img} alt="Pizza" />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {type.map((el, index) => {
+          {types.map((el, index) => {
             return (
-              <li
+              <li key={index}
                 className={activeTypeIndex === index ? "active" : ""}
                 onClick={() => setActiveTypeIndex(index)}>
-                  {el === 0 ? 'тонкое': 'традиционное'}
+                  {el ? 'тонкое': 'традиционное'}
               </li>
             );
           })}
         </ul>
         <ul>
           {sizes.map((el, index) => {
-            return (
-              <li
+            return ( 
+              <li key={index}
                 className={activeSizeIndex === index ? "active" : ""}
                 onClick={() => setActiveSizeIndex(index)}>
-                {el} см
+                {el} см.
               </li>
             );
           })}
