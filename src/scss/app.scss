@@ -21,7 +21,12 @@ body {
 
 .content {
   padding: 40px 0;
-
+  &__error{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
   &__title {
     margin: 35px 0;
   }
