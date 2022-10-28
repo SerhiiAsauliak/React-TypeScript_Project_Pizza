@@ -5,8 +5,9 @@
   text-align: center;
   margin-bottom: 65px;
 
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
+  &-wrapper{
+    display: flex;
+    justify-content: center;
   }
 
   &__image {
@@ -64,5 +65,8 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+  }
+  @media (max-width: 520px) {
+    width: 250px;
   }
 }
