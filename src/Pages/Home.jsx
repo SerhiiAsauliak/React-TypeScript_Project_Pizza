@@ -5,7 +5,7 @@ import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
 import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
 import axios from "axios";
 
-export const Home = () => {
+export const Home = ({searchValue}) => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -17,11 +17,12 @@ export const Home = () => {
   const sortBy = selectedItem.sortProperty.replace('-', '');
   const order = selectedItem.sortProperty.includes('-') ? 'asc' : 'desc';
   const category = categoryId ? 'category=' + categoryId : '';
+  const search = searchValue ? `&search=${searchValue}` : '';
 
   const res = () => {
     setIsLoading(true);
     axios
-      .get(`https://6357011f9243cf412f91c477.mockapi.io/pizzaItems?${category}&sortBy=${sortBy}&order=${order}`)
+      .get(`https://6357011f9243cf412f91c477.mockapi.io/pizzaItems?${category}&sortBy=${sortBy}&order=${order}${search}`)
       .then((res) => {
         setPizzas(res.data);
         setIsLoading(false);
@@ -30,7 +31,9 @@ export const Home = () => {
 
   useEffect(() => {
     res();
-  }, [categoryId, selectedItem]);
+    window.scrollTo(0, 0);
+  }, [categoryId, selectedItem, searchValue]);
+
 
   return (
     <div className="container">
