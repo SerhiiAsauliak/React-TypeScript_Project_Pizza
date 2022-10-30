@@ -4,11 +4,13 @@ import { Sort } from "./../components/Sort/Sort";
 import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
 import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
 import axios from "axios";
+import { Pagination } from "../components/Pagination/Pagination";
 
 export const Home = ({searchValue}) => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedItem, setSelectedItem] = useState({
     name: 'популярности',
     sortProperty: 'rating'
@@ -22,7 +24,7 @@ export const Home = ({searchValue}) => {
   const res = () => {
     setIsLoading(true);
     axios
-      .get(`https://6357011f9243cf412f91c477.mockapi.io/pizzaItems?${category}&sortBy=${sortBy}&order=${order}${search}`)
+      .get(`https://6357011f9243cf412f91c477.mockapi.io/pizzaItems?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
       .then((res) => {
         setPizzas(res.data);
         setIsLoading(false);
@@ -32,8 +34,7 @@ export const Home = ({searchValue}) => {
   useEffect(() => {
     res();
     window.scrollTo(0, 0);
-  }, [categoryId, selectedItem, searchValue]);
-
+  }, [categoryId, selectedItem, searchValue, currentPage]);
 
   return (
     <div className="container">
@@ -51,6 +52,7 @@ export const Home = ({searchValue}) => {
               return <PizzaBlock key={index} {...el} />;
             })}
       </div>
+      <Pagination onChangePage={(num) => setCurrentPage(num)}/>
     </div>
   );
 };
