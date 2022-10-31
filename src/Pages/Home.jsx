@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Categories } from "../components/Categories/Categories";
 import { Sort } from "./../components/Sort/Sort";
 import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
 import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
 import axios from "axios";
 import { Pagination } from "../components/Pagination/Pagination";
+import { SearchContext } from "../App";
 
-export const Home = ({searchValue}) => {
+export const Home = () => {
+  const {searchValue} = useContext(SearchContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);

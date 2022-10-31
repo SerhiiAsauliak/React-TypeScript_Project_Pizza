@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { SearchContext } from '../../App';
 import headerLogo from '../../assets/img/pizza-logo.svg';
 import { Search } from '../Search/Search';
 
-export const Header = ({searchValue, setSearchValue}) => {
+
+export const Header = () => {
+    const {searchValue, setSearchValue} = useContext(SearchContext);
+    
     return (
         <div className="header">
                 <div className="container">
