@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Categories } from "../components/Categories/Categories";
 import { Sort } from "./../components/Sort/Sort";
 import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
@@ -6,20 +7,19 @@ import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
 import axios from "axios";
 import { Pagination } from "../components/Pagination/Pagination";
 import { SearchContext } from "../App";
+import {setCategoryId} from '../redux/Slices/filterSlice';
 
 export const Home = () => {
+  const dispatch = useDispatch();
+  const {categoryId, sort} = useSelector(state => state.filter);
+  const sortProperty = sort.sortProperty;
   const {searchValue} = useContext(SearchContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedItem, setSelectedItem] = useState({
-    name: 'популярности',
-    sortProperty: 'rating'
-  });
 
-  const sortBy = selectedItem.sortProperty.replace('-', '');
-  const order = selectedItem.sortProperty.includes('-') ? 'asc' : 'desc';
+  const sortBy = sortProperty.replace('-', '');
+  const order = sortProperty.includes('-') ? 'asc' : 'desc';
   const category = categoryId ? 'category=' + categoryId : '';
   const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -36,15 +36,14 @@ export const Home = () => {
   useEffect(() => {
     res();
     window.scrollTo(0, 0);
-  }, [categoryId, selectedItem, searchValue, currentPage]);
+  }, [categoryId, sortProperty, searchValue, currentPage]);
 
   return (
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId}
-                    onChangeCategory={(id) => setCategoryId(id)}/>
-        <Sort value={selectedItem}
-                    onChangeSort={(el) => setSelectedItem(el)}/>
+                    onChangeCategory={(id) => dispatch(setCategoryId(id))}/>
+        <Sort/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
