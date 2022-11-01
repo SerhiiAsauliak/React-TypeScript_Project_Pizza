@@ -1,13 +1,10 @@
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { SearchContext } from '../../App';
 import headerLogo from '../../assets/img/pizza-logo.svg';
 import { Search } from '../Search/Search';
 
 
 export const Header = () => {
-    const {searchValue, setSearchValue} = useContext(SearchContext);
     const {items, totalPrice} = useSelector(state => state.cart);
     const totalCount = items.reduce((total, amount) => total + amount.count, 0);
     
@@ -23,7 +20,7 @@ export const Header = () => {
                             </div>
                         </div>
                     </Link>
-                    <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
+                    <Search />
                     <div className="header__cart">
                         <Link to="/cart" className="button button--cart">
                             <span>{totalPrice}₴</span>

@@ -21,6 +21,16 @@ body {
 
 .content {
   padding: 40px 0;
+  &__error-items{
+    width: 500px;
+    padding: 60px;
+    min-height: 400px;
+    margin: 0 auto;
+    text-align: center;
+    p{
+      margin-top: 20px;
+    }
+  }
   &__error{
     position: absolute;
     top: 0;
