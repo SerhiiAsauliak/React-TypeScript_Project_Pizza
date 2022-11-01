@@ -40,7 +40,6 @@ export const Home = () => {
  // Если изменили параметры и был первый рендер
   useEffect(() => {
     if(isMounted.current){
-      console.log('isMounted.current')
       const queryString = qs.stringify({
         sortProperty: sort.sortProperty,
         categoryId,
