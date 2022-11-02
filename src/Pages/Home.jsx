@@ -9,23 +9,22 @@ import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
 import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
 import { Pagination } from "../components/Pagination/Pagination";
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../redux/Slices/filterSlice";
-import { fetchPizzas } from "../redux/Slices/pizzasSlice";
+import { fetchPizzas, selectPizzasData } from "../redux/Slices/pizzasSlice";
 
 export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
-  const { pizzas, status } = useSelector((state) => state.pizzas);
+  const { searchValue, categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { pizzas, status } = useSelector(selectPizzasData);
   const sortProperty = sort.sortProperty;
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  // const  = useSelector((state) => state.filter.searchValue);
 
   const getPizzas = async () => {
     const sortBy = sortProperty.replace("-", "");
