@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import qs from "qs";
 
 import { Categories } from "../components/Categories/Categories";
@@ -17,6 +17,7 @@ import {
 import { fetchPizzas, selectPizzasData } from "../redux/Slices/pizzasSlice";
 
 export const Home = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
@@ -24,7 +25,6 @@ export const Home = () => {
   const { searchValue, categoryId, sort, currentPage } = useSelector(selectFilter);
   const { pizzas, status } = useSelector(selectPizzasData);
   const sortProperty = sort.sortProperty;
-  // const  = useSelector((state) => state.filter.searchValue);
 
   const getPizzas = async () => {
     const sortBy = sortProperty.replace("-", "");
@@ -74,6 +74,11 @@ export const Home = () => {
     isSearch.current = false;
   }, [categoryId, sortProperty, searchValue, currentPage]);
 
+  const pizzaItems = pizzas.map((el, index) => {
+    return <Link key={index} to={`/pizza/${el.id}`}><PizzaBlock {...el} /></Link>;
+  })
+  const skeleton = [...new Array(6)].map((_, index) => <SkeletonPizza key={index}/>);
+
   return (
     <div className="container">
       <div className="content__top">
@@ -91,11 +96,7 @@ export const Home = () => {
         </div>
       ) : (
         <div className="content__items">
-          {status === "loading"
-            ? [...new Array(6)].map((_, index) => <SkeletonPizza key={index} />)
-            : pizzas.map((el, index) => {
-                return <PizzaBlock key={index} {...el} />;
-              })}
+          {status === "loading" ? skeleton : pizzaItems}
         </div>
       )}
 
