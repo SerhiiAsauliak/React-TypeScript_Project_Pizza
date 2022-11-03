@@ -9,7 +9,6 @@ export const FullPizzaInfo = () => {
   const {status} = useSelector(selectPizzasData);
   const dispatch = useDispatch();
   const { id } = useParams();
-console.log(pizzaItem)
   const getPizza = async () => {
     dispatch(fetchPizzaItem(id));
   };
@@ -24,7 +23,7 @@ console.log(pizzaItem)
 
   return (
     <div className="container">
-        {status === 'received' 
+        {status === 'received' && pizzaItem
         ? <>
                <img src={pizzaItem.imageUrl} alt="pizzaImage" />
                <h2>{pizzaItem.title}</h2>
