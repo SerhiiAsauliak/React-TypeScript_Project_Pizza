@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import qs from "qs";
 
 import { Categories } from "../components/Categories/Categories";
-import { listItems, Sort } from "./../components/Sort/Sort";
-import { PizzaBlock } from "./../components/Pizza-block/Pizza-block";
-import { SkeletonPizza } from "./../components/Pizza-block/SkeletonPizza";
+import { listItems, Sort } from "../components/Sort/Sort";
+import { PizzaBlock } from "../components/Pizza-block/Pizza-block";
+import { SkeletonPizza } from "../components/Pizza-block/SkeletonPizza";
 import { Pagination } from "../components/Pagination/Pagination";
 import {
   selectFilter,
@@ -16,7 +16,7 @@ import {
 } from "../redux/Slices/filterSlice";
 import { fetchPizzas, selectPizzasData } from "../redux/Slices/pizzasSlice";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const Home = () => {
     const order = sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId ? "category=" + categoryId : "";
     const search = searchValue ? `&search=${searchValue}` : "";
-
+    // @ts-ignore
     dispatch(fetchPizzas({ currentPage, sortBy, order, category, search }));
   };
 
@@ -74,7 +74,7 @@ export const Home = () => {
     isSearch.current = false;
   }, [categoryId, sortProperty, searchValue, currentPage]);
 
-  const pizzaItems = pizzas.map((el, index) => {
+  const pizzaItems = pizzas.map((el: any, index: number) => {
     return <PizzaBlock key={index} {...el} />;
   })
   const skeleton = [...new Array(6)].map((_, index) => <SkeletonPizza key={index}/>);
@@ -84,7 +84,7 @@ export const Home = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(id) => dispatch(setCategoryId(id))}
+          onChangeCategory={(id: number) => dispatch(setCategoryId(id))}
         />
         <Sort />
       </div>
@@ -102,7 +102,7 @@ export const Home = () => {
 
       <Pagination
         currentPage={currentPage}
-        onChangePage={(num) => dispatch(setCurrentPage(num))}
+        onChangePage={(num: number) => dispatch(setCurrentPage(num))}
       />
     </div>
   );

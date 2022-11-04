@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-export const SkeletonPizza = (props) => (
+export const SkeletonPizza: React.FC = () => (
     <ContentLoader 
       speed={2}
       width={280}
@@ -9,7 +9,6 @@ export const SkeletonPizza = (props) => (
       viewBox="0 0 280 455"
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
-      {...props}
     >
       <circle cx="135" cy="125" r="125" /> 
       <rect x="-2" y="265" rx="0" ry="0" width="280" height="24" /> 

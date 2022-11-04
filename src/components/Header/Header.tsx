@@ -7,7 +7,7 @@ import { Search } from '../Search/Search';
 
 export const Header = () => {
     const {items, totalPrice} = useSelector(selectCart);
-    const totalCount = items.reduce((total, amount) => total + amount.count, 0);
+    const totalCount = items.reduce((total: number, amount: any) => total + amount.count, 0);
     const location = useLocation();
 
     return (
