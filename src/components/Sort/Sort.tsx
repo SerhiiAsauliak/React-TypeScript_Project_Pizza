@@ -1,31 +1,37 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { selectFilter, setSort } from '../../redux/Slices/filterSlice';
+import { useSelector } from "react-redux";
+import { ISort, selectFilter, setSort } from '../../redux/Slices/filterSlice';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useAppDispatch } from '../../redux/store';
 
-type SortItem = {name: string, sortProperty: string};
+interface SortItem extends ISort {};
 
 export const listItems: SortItem[] = [
-  {name: 'популярности (DESC)', sortProperty: 'rating'},
-  {name: 'популярности (ASC)', sortProperty: '-rating'},
-  {name: 'цене (DESC)', sortProperty: 'price'}, 
-  {name: 'цене (ASC)', sortProperty: '-price'}, 
-  {name: 'алфавиту (DESC)', sortProperty: 'title'},
-  {name: 'алфавиту (ASC)', sortProperty: '-title'},
+  {name: 'популярності (DESC)', sortProperty: 'rating'},
+  {name: 'популярності (ASC)', sortProperty: '-rating'},
+  {name: 'ціні (DESC)', sortProperty: 'price'}, 
+  {name: 'ціні (ASC)', sortProperty: '-price'}, 
+  {name: 'алфавіту (DESC)', sortProperty: 'title'},
+  {name: 'алфавіту (ASC)', sortProperty: '-title'},
 ];
+
+type PopupCkick = MouseEvent & {
+  path: Node[];
+} 
 
 export const Sort = () => {
   const sortRef = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {sort} = useSelector(selectFilter);
   const [openList, setOpenList] = useState(false);
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-        if(!e.path.includes(sortRef.current)){
-          setOpenList(false);
-        }
+    const handleClickOutside = (e: MouseEvent) => {
+      const _e = e as PopupCkick;
+      if(sortRef.current && !_e.path.includes(sortRef.current)){
+        setOpenList(false);
+      }
     }
     document.body.addEventListener('click', handleClickOutside);
     
@@ -58,7 +64,7 @@ export const Sort = () => {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортування по:</b>
         <span onClick={() => setOpenList(openList => !openList)}>{sort.name}</span>
       </div>
       {openList && <div className="sort__popup">

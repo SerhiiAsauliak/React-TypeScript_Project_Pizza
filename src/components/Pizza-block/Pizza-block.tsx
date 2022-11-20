@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem, selectCartItemById } from '../../redux/Slices/cartSlice';
+import { addItem, CartItemType, selectCartItemById } from '../../redux/Slices/cartSlice';
 
 type PizzaBlockProps = {
   id: string, 
@@ -15,19 +15,20 @@ type PizzaBlockProps = {
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({id, imageUrl, title, types, sizes, price}) => {
   const [activeSizeIndex, setActiveSizeIndex] = useState<number>(0);
   const [activeTypeIndex, setActiveTypeIndex] = useState<number>(0);
-  const typeNames = ['традиционное', 'тонкое'];
+  const typeNames = ['традиційне', 'тонке'];
   const cartItem = useSelector(selectCartItemById(id));
   const addedCount = cartItem ? cartItem.count : 0;
   const dispatch = useDispatch();
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItemType = {
       id,
       imageUrl,
       title,
       types: typeNames[activeTypeIndex],
       size: sizes[activeSizeIndex],
-      price
+      price,
+      count: 0,
     };
     dispatch(addItem(item));
   }
@@ -46,7 +47,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({id, imageUrl, title, type
                 <li key={index}
                   className={activeTypeIndex === index ? "active" : ""}
                   onClick={() => setActiveTypeIndex(index)}>
-                    {el ? 'тонкое': 'традиционное'}
+                    {el ? 'тонке': 'традиційне'}
                 </li>
               );
             })}
@@ -64,7 +65,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({id, imageUrl, title, type
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} грн</div>
+          <div className="pizza-block__price">від {price} грн</div>
           <button onClick={() => onClickAdd()} className="button button--outline button--add">
             <svg
               width="12"
@@ -78,7 +79,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({id, imageUrl, title, type
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Додати</span>
             {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>

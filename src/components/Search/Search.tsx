@@ -17,7 +17,7 @@ export const Search: React.FC = () => {
     }, 500),[]
   );
 
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     updateInputValue(e.target.value);
   }
@@ -38,7 +38,7 @@ export const Search: React.FC = () => {
         value={value}
         ref={inputRef}
         className={s.input}
-        placeholder="Название пиццы..."
+        placeholder="Назва піци..."
       />
       {value && (
         <img
@@ -51,3 +51,4 @@ export const Search: React.FC = () => {
     </div>
   );
 };
+

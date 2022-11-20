@@ -1,18 +1,19 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CartEmpty } from "../components/CartEmpty/CartEmpty";
 import { CartItem } from "../components/CartItem/CartItem";
 import { clearCart, selectCart } from "../redux/Slices/cartSlice";
+import { useAppDispatch } from "../redux/store";
 
 export const Cart: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {items, totalPrice} = useSelector(selectCart);
 
   const totalCount = items.reduce((total: number, amount: any) => total + amount.count, 0)
 
   const onClickClear = () => {
-    if(window.confirm('Очистить корзину?')){
+    if(window.confirm('Очистити кошик?')){
       dispatch(clearCart());
     }
   }
@@ -55,7 +56,7 @@ export const Cart: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            Корзина
+            Кошик
           </h2>
           <div className="cart__clear">
             <svg
@@ -95,7 +96,7 @@ export const Cart: React.FC = () => {
               />
             </svg>
 
-            <span onClick={() => onClickClear()}>Очистить корзину</span>
+            <span onClick={() => onClickClear()}>Очистити кошик</span>
           </div>
         </div>
         <div className="cart__items">
@@ -105,11 +106,11 @@ export const Cart: React.FC = () => {
           <div className="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>{totalCount} шт</b>{" "}
+              Всього піц: <b>{totalCount} шт</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>{totalPrice}</b>{" "}
+              Сума заказу: <b>{totalPrice}</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -130,10 +131,10 @@ export const Cart: React.FC = () => {
                 />
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Повернутись назад</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Оплатити зараз</span>
             </div>
           </div>
         </div>

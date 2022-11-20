@@ -2,12 +2,12 @@ import React from "react";
 
 type CategoriesProps = {
   value: number,
-  onChangeCategory: any,
+  onChangeCategory: (index: number) => void,
 }
 
 export const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory}) => {  
-  const categories = ['Все', 'Мясные','Вегетарианская',
-                      'Гриль', 'Острые', 'Закрытые'];
+  const categories = ['Всі', 'М\'ясні','Вегетаріанські',
+                      'Гриль', 'Гострі', 'Закрыті'];
 
   const categoriesList = categories.map((el, index) => {
     return <li key={index}
