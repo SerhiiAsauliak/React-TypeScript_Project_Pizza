@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { ISort, selectFilter, setSort } from '../../redux/Slices/filterSlice';
 import { useRef } from 'react';
@@ -12,7 +12,7 @@ export const listItems: SortItem[] = [
   {name: 'популярності (ASC)', sortProperty: '-rating'},
   {name: 'ціні (DESC)', sortProperty: 'price'}, 
   {name: 'ціні (ASC)', sortProperty: '-price'}, 
-  {name: 'алфавіту (DESC)', sortProperty: 'title'},
+  {name: 'алфавіту (DESC)', sortProperty: 'title'},  
   {name: 'алфавіту (ASC)', sortProperty: '-title'},
 ];
 
@@ -20,10 +20,13 @@ type PopupCkick = MouseEvent & {
   path: Node[];
 } 
 
-export const Sort = () => {
+interface ISortProps {
+  value: ISort
+}
+
+export const Sort: React.FC<ISortProps> = React.memo(({value}) => {
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  const {sort} = useSelector(selectFilter);
   const [openList, setOpenList] = useState(false);
 
   useEffect(() => {
@@ -39,7 +42,7 @@ export const Sort = () => {
   }, [])
 
   const list = listItems.map((el, index) => {
-    return <li className={sort.sortProperty === el.sortProperty ? 'active' : ''}
+    return <li className={value.sortProperty === el.sortProperty ? 'active' : ''}
                onClick={() => onItemClick(el)}
                key={index}>{el.name}</li>
   })
@@ -65,7 +68,7 @@ export const Sort = () => {
           />
         </svg>
         <b>Сортування по:</b>
-        <span onClick={() => setOpenList(openList => !openList)}>{sort.name}</span>
+        <span onClick={() => setOpenList(openList => !openList)}>{value.name}</span>
       </div>
       {openList && <div className="sort__popup">
         <ul>
@@ -74,4 +77,4 @@ export const Sort = () => {
       </div>}
     </div>
   );
-};
+});

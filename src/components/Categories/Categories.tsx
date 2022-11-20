@@ -5,10 +5,10 @@ type CategoriesProps = {
   onChangeCategory: (index: number) => void,
 }
 
-export const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory}) => {  
+export const Categories: React.FC<CategoriesProps> = React.memo(({value, onChangeCategory}) => {  
   const categories = ['Всі', 'М\'ясні','Вегетаріанські',
                       'Гриль', 'Гострі', 'Закрыті'];
-
+  
   const categoriesList = categories.map((el, index) => {
     return <li key={index}
               className={value === index ? 'active' : ''}
@@ -24,6 +24,5 @@ export const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory})
       </ul>
     </div>
   );
-};
+})
 
- 

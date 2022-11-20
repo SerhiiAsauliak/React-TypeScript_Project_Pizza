@@ -9,7 +9,7 @@ import { useAppDispatch } from "../redux/store";
 export const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const {items, totalPrice} = useSelector(selectCart);
-
+  
   const totalCount = items.reduce((total: number, amount: any) => total + amount.count, 0)
 
   const onClickClear = () => {

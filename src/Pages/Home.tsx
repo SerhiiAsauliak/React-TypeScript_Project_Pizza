@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
@@ -79,6 +79,10 @@ export const Home: React.FC = () => {
     isSearch.current = false;
   }, [categoryId, sortProperty, searchValue, currentPage]);
 
+  const onChangeCategory = useCallback((id: number) => {
+    dispatch(setCategoryId(id))
+  }, [])
+
   const pizzaItems = pizzas.map((el: any, index: number) => {
     return <PizzaBlock key={index} {...el} />;
   })
@@ -89,9 +93,9 @@ export const Home: React.FC = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(id: number) => dispatch(setCategoryId(id))}
+          onChangeCategory={onChangeCategory}
         />
-        <Sort />
+        <Sort value={sort}/>
       </div>
       <h2 className="content__title">Всі піци</h2>
       {status === "rejected" ? (
