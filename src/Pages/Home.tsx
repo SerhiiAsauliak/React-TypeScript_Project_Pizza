@@ -8,15 +8,12 @@ import { listItems, Sort } from "../components/Sort/Sort";
 import { PizzaBlock } from "../components/Pizza-block/Pizza-block";
 import { SkeletonPizza } from "../components/Pizza-block/SkeletonPizza";
 import { Pagination } from "../components/Pagination/Pagination";
-import {
-  FilterState,
-  selectFilter,
-  setCategoryId,
-  setCurrentPage,
-  setFilters,
-} from "../redux/Slices/filterSlice";
-import { fetchPizzas, SearchPizzaParams, selectPizzasData } from "../redux/Slices/pizzasSlice";
+import { setCategoryId, setCurrentPage, setFilters } from "../redux/filters/slice";
 import { useAppDispatch } from "../redux/store";
+import { selectFilter } from "../redux/filters/selectors";
+import { selectPizzasData } from "../redux/pizzas/selectors";
+import { fetchPizzas } from "../redux/pizzas/asyncActions";
+import { SearchPizzaParams } from "../redux/pizzas/types";
 
 export const Home: React.FC = () => {
   
@@ -68,7 +65,7 @@ export const Home: React.FC = () => {
       );
       isSearch.current = true;
     }
-  }, []);
+  }, [dispatch]);
 
   // Если был первый рендер, то запрашиваем пиццы
   useEffect(() => {
@@ -81,7 +78,7 @@ export const Home: React.FC = () => {
 
   const onChangeCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id))
-  }, [])
+  }, [dispatch])
 
   const pizzaItems = pizzas.map((el: any, index: number) => {
     return <PizzaBlock key={index} {...el} />;

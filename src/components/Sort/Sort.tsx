@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector } from "react-redux";
-import { ISort, selectFilter, setSort } from '../../redux/Slices/filterSlice';
+import {  setSort } from '../../redux/filters/slice';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../redux/store';
+import { ISort } from '../../redux/filters/types';
 
 interface SortItem extends ISort {};
 
