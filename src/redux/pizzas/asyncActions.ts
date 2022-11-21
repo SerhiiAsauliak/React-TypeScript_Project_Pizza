@@ -12,9 +12,9 @@ export const fetchPizzas = createAsyncThunk<PizzaItem[], Record<string, string>>
         return res.data;
 })
 
-export const fetchPizzaItem = createAsyncThunk(
+export const fetchPizzaItem = createAsyncThunk<PizzaItem, string >(
     'pizzaItem/fetchPizzaItem', async (id) => {
-        const { data } = await axios.get(
+        const { data } = await axios.get<PizzaItem>(
             `https://6357011f9243cf412f91c477.mockapi.io/pizzaItems/${id}`
           );
         return data;

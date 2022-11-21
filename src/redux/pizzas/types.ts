@@ -1,12 +1,12 @@
 export type PizzaItem = {
-    category: number,
-    id: string,
-    imageUrl: string,
-    price: number,
-    rating: number,
-    sizes: number[],
-    title: string,
-    types: number[],
+    category?: number,
+    id?: string,
+    imageUrl?: string,
+    price?: number,
+    rating?: number,
+    sizes?: number[],
+    title?: string,
+    types?: number[],
 }
 
 export enum Status {
@@ -18,7 +18,7 @@ export enum Status {
 
 export interface PizzaState {
     pizzas: PizzaItem[],
-    pizzaItem: [],
+    pizzaItem: PizzaItem,
     status: Status,
 }
 

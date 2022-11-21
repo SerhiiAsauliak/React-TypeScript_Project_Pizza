@@ -4,7 +4,7 @@ import { PizzaState, Status } from './types';
 
 const initialState: PizzaState = {
     pizzas: [],
-    pizzaItem: [],
+    pizzaItem: {},
     status: Status.IDLE, 
 };
 
@@ -28,11 +28,11 @@ export const pizzasSlice = createSlice({
             })
             .addCase(fetchPizzaItem.pending, (state) => {
                 state.status = Status.LOADING;
-                state.pizzaItem = [];
+                state.pizzaItem = {};
             })
             .addCase(fetchPizzaItem.rejected, (state) => {
                 state.status = Status.REJECTED;
-                state.pizzaItem = [];
+                state.pizzaItem = {};
             })
             .addCase(fetchPizzaItem.fulfilled, (state, action) => {
                 state.status = Status.RECEIVED;

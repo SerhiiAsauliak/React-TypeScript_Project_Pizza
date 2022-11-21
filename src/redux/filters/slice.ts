@@ -6,7 +6,7 @@ const initialState: FilterState = {
     categoryId: 0,
     currentPage: 1,
     sort: {
-        name: 'популярности (DESC)',
+        name: 'популярності (від найбільшого)',
         sortProperty: 'rating',
     },
 };

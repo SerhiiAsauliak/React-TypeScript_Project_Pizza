@@ -1,0 +1,12 @@
+.full-pizza {
+    margin: 0 auto;
+    max-width: 450px;
+    & img {
+        width: 100%;
+    }
+    & h2 {
+        font-size: 32px;
+        font-weight: 600;
+        text-align: center;
+    }
+}
