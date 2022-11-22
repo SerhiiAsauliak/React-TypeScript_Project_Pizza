@@ -9,6 +9,27 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 16px;
     transition: all 0.2s ease-in-out;
+    @media (max-width: 1050px) {
+        width: 200px;
+    }
+    @media (max-width: 420px) {
+        width: 100px;
+        &::-webkit-input-placeholder {
+            color: transparent;
+        }
+        &::-moz-placeholder {
+            color: transparent;
+        }
+        &:-ms-input-placeholder {
+            color: transparent;
+        }
+        &::-ms-input-placeholder {
+            color: transparent;
+        }
+        &::placeholder {
+            color: transparent;
+        }
+    }
 }
 .input:focus{
     border: 2px solid rgba(0, 0, 0, 0.3);
