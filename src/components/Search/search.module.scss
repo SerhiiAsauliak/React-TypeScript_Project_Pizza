@@ -34,6 +34,9 @@
 .input:focus{
     border: 2px solid rgba(0, 0, 0, 0.3);
     width: 450px; 
+    @media (max-width: 1050px) {
+        width: 160px;
+    }
 }
 .iconSearch{
     position: absolute;
