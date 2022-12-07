@@ -8,12 +8,12 @@ import { ISort } from '../../redux/filters/types';
 interface SortItem extends ISort {};
 
 export const listItems: SortItem[] = [
-  {name: 'популярності (DESC)', sortProperty: 'rating'},
-  {name: 'популярності (ASC)', sortProperty: '-rating'},
-  {name: 'ціні (DESC)', sortProperty: 'price'}, 
-  {name: 'ціні (ASC)', sortProperty: '-price'}, 
-  {name: 'алфавіту (DESC)', sortProperty: 'title'},  
-  {name: 'алфавіту (ASC)', sortProperty: '-title'},
+  {name: 'популярності (від більшого)', sortProperty: 'rating'},
+  {name: 'популярності (від меншого)', sortProperty: '-rating'},
+  {name: 'ціні (від більшого)', sortProperty: 'price'}, 
+  {name: 'ціні (від меншого)', sortProperty: '-price'}, 
+  {name: 'алфавіту (від більшого)', sortProperty: 'title'},  
+  {name: 'алфавіту (від меншого)', sortProperty: '-title'},
 ];
 
 type PopupCkick = MouseEvent & {
